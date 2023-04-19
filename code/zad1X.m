@@ -1,7 +1,7 @@
 data = readtable('dane21.csv');
 N1 = 20; N2 = 20; N3 = 20;
 J = zeros(N1,N2,N3);
-RX = linspace(-50,50,N2);
+RX = linspace(-100,100,N2);
 RXY = linspace(-1,1,N2);
 RXX = linspace(-1,1,N3);
 dt = mean(diff(data.t));

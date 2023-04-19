@@ -1,9 +1,9 @@
     data = readtable('dane21.csv');
-    N1 = 20;
-    N2 = 20;
-    N3 = 20;
+    N1 = 50;
+    N2 = 50;
+    N3 = 50;
     J = zeros(N1,N2,N3);
-    RY = linspace(-50,50,N1);
+    RY = linspace(-100,100,N1);
     RYX = linspace(-1,1,N2);
     RYY = linspace(-1,1,N3);
     dt = mean(diff(data.t));
@@ -17,10 +17,10 @@
                 y = zeros(size(T));
                 y(1) = data.y(1);
                 f = @(x,y) ry*y+ryx*x*y+ryy*y*y;
-%                 Metoda Eulera
-%                 for i = 2 : length(T)
-%                     y(i) = y(i-1) + dt*f(data.x(i-1), y(i-1));
-%                 end
+    %             Metoda Eulera
+    %             for i = 2 : length(T)
+    %                 y(i) = y(i-1) + dt*f(data.x(i-1), y(i-1));
+    %             end
     
     %             Metoda Adamsa-Bashfortha
                 y(2) = y(1) + dt * f(data.x(1), y(1));
@@ -31,16 +31,16 @@
                 end
     
     %             Niejawna metoda Eulera
-%                 for i = 2 : length(T)
-%                     y1 = -(dt*ry - (dt^2*ry^2 + 2*dt^2*ry*ryx*data.x(i) + dt^2*ryx^2*data.x(i)^2 - 2*dt*ry - 2*dt*ryx*data.x(i) - 4*ryy*y(i-1)*dt + 1)^(1/2) + dt*ryx*data.x(i) - 1)/(2*dt*ryy);
-%                     y2 = -(dt*ry + (dt^2*ry^2 + 2*dt^2*ry*ryx*data.x(i) + dt^2*ryx^2*data.x(i)^2 - 2*dt*ry - 2*dt*ryx*data.x(i) - 4*ryy*y(i-1)*dt + 1)^(1/2) + dt*ryx*data.x(i) - 1)/(2*dt*ryy);
-%                     if isreal(y1) && isreal(y2) && (y1>0 || y2>0)
-%                         y(i) = max(y1, y2);
-%                     else
-%                         y(i) = Inf;
-%                         break
-%                     end
-%                 end
+    %             for i = 2 : length(T)
+    %                 y1 = -(dt*ry - (dt^2*ry^2 + 2*dt^2*ry*ryx*data.x(i) + dt^2*ryx^2*data.x(i)^2 - 2*dt*ry - 2*dt*ryx*data.x(i) - 4*ryy*y(i-1)*dt + 1)^(1/2) + dt*ryx*data.x(i) - 1)/(2*dt*ryy);
+    %                 y2 = -(dt*ry + (dt^2*ry^2 + 2*dt^2*ry*ryx*data.x(i) + dt^2*ryx^2*data.x(i)^2 - 2*dt*ry - 2*dt*ryx*data.x(i) - 4*ryy*y(i-1)*dt + 1)^(1/2) + dt*ryx*data.x(i) - 1)/(2*dt*ryy);
+    %                 if isreal(y1) && isreal(y2) && (y1>0 || y2>0)
+    %                     y(i) = max(y1, y2);
+    %                 else
+    %                     y(i) = Inf;
+    %                     break
+    %                 end
+    %             end
     
                 J(it1, it2, it3) = sum((data.y'-y).*(data.y'-y));
             end
